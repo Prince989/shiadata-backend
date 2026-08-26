@@ -53,16 +53,64 @@ export class UnauthorizedAppError extends AppError {
   readonly code = ErrorCode.UNAUTHORIZED;
   readonly httpStatus = 401;
   readonly safeMessage = 'Unauthorized';
+
+  constructor(
+    message = 'Unauthorized',
+    logContext: Record<string, unknown> = {},
+  ) {
+    super(message, logContext);
+  }
 }
 
 export class ForbiddenAppError extends AppError {
   readonly code = ErrorCode.FORBIDDEN;
   readonly httpStatus = 403;
-  readonly safeMessage = 'Forbidden';
+  readonly safeMessage: string;
+
+  constructor(
+    message = 'Forbidden',
+    logContext: Record<string, unknown> = {},
+  ) {
+    super(message, logContext);
+    this.safeMessage = message;
+  }
 }
 
 export class RequestTimeoutAppError extends AppError {
   readonly code = ErrorCode.REQUEST_TIMEOUT;
   readonly httpStatus = 504;
   readonly safeMessage = 'The request took too long to complete';
+
+  constructor(
+    message = 'The request took too long to complete',
+    logContext: Record<string, unknown> = {},
+  ) {
+    super(message, logContext);
+  }
+}
+
+export class EngineUnavailableError extends AppError {
+  readonly code = ErrorCode.ENGINE_UNAVAILABLE;
+  readonly httpStatus = 503;
+  readonly safeMessage = 'The research engine is temporarily unavailable';
+
+  constructor(
+    message = 'The research engine is temporarily unavailable',
+    logContext: Record<string, unknown> = {},
+  ) {
+    super(message, logContext);
+  }
+}
+
+export class EngineInvalidResponseError extends AppError {
+  readonly code = ErrorCode.ENGINE_INVALID_RESPONSE;
+  readonly httpStatus = 502;
+  readonly safeMessage = 'The research engine returned an unexpected response';
+
+  constructor(
+    message = 'The research engine returned an unexpected response',
+    logContext: Record<string, unknown> = {},
+  ) {
+    super(message, logContext);
+  }
 }

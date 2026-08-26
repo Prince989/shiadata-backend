@@ -12,11 +12,11 @@ import { AppConfig } from '@config/index';
 import { RequestTimeoutAppError } from '@common/errors/app.error';
 
 /**
- * Global request deadline. Deliberately generous (default 30s) and meant as
+ * Global request deadline. Deliberately generous (default 120s) and meant as
  * a backstop for routes that forget their own timeout, not as the primary
- * control for slow upstreams -- the Python engine client sets its own
- * per-endpoint timeouts (up to 180s for the heavy routes), which this global
- * value must never race against once that client exists.
+ * control for slow upstreams -- the LLM gateway (60s per attempt, 90s
+ * deadline) and Python engine client (up to 180s for heavy routes) must
+ * finish before this global value fires.
  */
 @Injectable()
 export class TimeoutInterceptor implements NestInterceptor {

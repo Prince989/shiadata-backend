@@ -8,6 +8,7 @@ import { Logger, PinoLogger } from 'nestjs-pino';
 
 import { AppModule } from './app.module';
 import { AppConfig } from '@config/index';
+import { SWAGGER_BEARER_AUTH } from '@common/swagger/swagger.constants';
 import { AllExceptionsFilter } from '@common/filters/all-exceptions.filter';
 import { RequestIdInterceptor } from '@common/interceptors/request-id.interceptor';
 import { TimeoutInterceptor } from '@common/interceptors/timeout.interceptor';
@@ -84,12 +85,27 @@ async function bootstrap(): Promise<void> {
       app,
       new DocumentBuilder()
         .setTitle('SHIA-DATA Backend')
-        .setDescription('NestJS product layer for the SHIA-DATA AI Engine')
+        .setDescription(
+          'NestJS product layer for the SHIA-DATA AI Engine. ' +
+            'Use **Authorize** with the `accessToken` from POST /auth/login or /auth/register ' +
+            '(paste the token only — Swagger adds the Bearer prefix).',
+        )
         .setVersion('1.0')
-        .addBearerAuth()
+        .addBearerAuth(
+          {
+            type: 'http',
+            scheme: 'bearer',
+            bearerFormat: 'access-token',
+            description:
+              'JWT-style access token from auth endpoints, e.g. access.<userId>',
+          },
+          SWAGGER_BEARER_AUTH,
+        )
         .build(),
     );
-    SwaggerModule.setup(app_.swaggerPath, app, document);
+    SwaggerModule.setup(app_.swaggerPath, app, document, {
+      swaggerOptions: { persistAuthorization: true },
+    });
   }
 
   await app.listen(app_.port, '0.0.0.0');

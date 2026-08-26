@@ -20,8 +20,18 @@ import { DatabaseModule } from '@infra/database/database.module';
 import { RedisModule, REDIS_CLIENT } from '@infra/redis/redis.module';
 import { LoggerModule } from '@infra/logger/logger.module';
 import { UserThrottlerGuard } from '@common/guards/user-throttler.guard';
+import { JwtAuthGuard } from '@common/guards/jwt-auth.guard';
 import { HealthModule } from '@modules/health/health.module';
 import { AiGatewayModule } from '@modules/ai-gateway/ai-gateway.module';
+import { PythonEngineModule } from '@modules/ai-engine-client/python-engine.module';
+import { AnalysisModule } from '@modules/analysis/analysis.module';
+import { AuthModule } from '@modules/auth/auth.module';
+import { SafetyModule } from '@modules/safety/safety.module';
+import { LifestyleModule } from '@modules/lifestyle/lifestyle.module';
+import { StorytellingModule } from '@modules/storytelling/storytelling.module';
+import { ContentFactoryModule } from '@modules/content-factory/content-factory.module';
+import { HistoricalMatchingModule } from '@modules/historical-matching/historical-matching.module';
+import { IjtihadModule } from '@modules/ijtihad/ijtihad.module';
 
 @Module({
   imports: [
@@ -65,7 +75,19 @@ import { AiGatewayModule } from '@modules/ai-gateway/ai-gateway.module';
     }),
     HealthModule,
     AiGatewayModule,
+    PythonEngineModule,
+    AnalysisModule,
+    AuthModule,
+    SafetyModule,
+    LifestyleModule,
+    StorytellingModule,
+    ContentFactoryModule,
+    HistoricalMatchingModule,
+    IjtihadModule,
   ],
-  providers: [{ provide: APP_GUARD, useClass: UserThrottlerGuard }],
+  providers: [
+    { provide: APP_GUARD, useClass: UserThrottlerGuard },
+    { provide: APP_GUARD, useClass: JwtAuthGuard },
+  ],
 })
 export class AppModule {}

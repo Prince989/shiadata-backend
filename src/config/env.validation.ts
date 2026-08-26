@@ -23,7 +23,7 @@ export const envValidationSchema = Joi.object({
     .valid('trace', 'debug', 'info', 'warn', 'error', 'fatal')
     .default('debug'),
   LOG_PRETTY: Joi.boolean().default(true),
-  REQUEST_TIMEOUT_MS: Joi.number().integer().min(1000).default(30000),
+  REQUEST_TIMEOUT_MS: Joi.number().integer().min(1000).default(120_000),
   EXPOSE_ERROR_DETAILS: Joi.boolean().default(false),
   OPS_TOKEN: Joi.string().allow('').default(''),
 

@@ -32,7 +32,7 @@ export default registerAs('app', (): AppConfig => ({
   swaggerPath: process.env.SWAGGER_PATH ?? 'docs',
   logLevel: process.env.LOG_LEVEL ?? 'debug',
   logPretty: process.env.LOG_PRETTY !== 'false',
-  requestTimeoutMs: Number(process.env.REQUEST_TIMEOUT_MS ?? 30000),
+  requestTimeoutMs: Number(process.env.REQUEST_TIMEOUT_MS ?? 120_000),
   exposeErrorDetails: process.env.EXPOSE_ERROR_DETAILS === 'true',
   opsToken: process.env.OPS_TOKEN ?? '',
 }));

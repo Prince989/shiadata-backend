@@ -41,7 +41,8 @@ export class MemoryLlmCache implements ILlmCache {
   tryLock(key: string, ttlMs: number): Promise<boolean> {
     if (this.locks.has(key)) return Promise.resolve(false);
     this.locks.add(key);
-    setTimeout(() => this.locks.delete(key), ttlMs);
+    const timer = setTimeout(() => this.locks.delete(key), ttlMs);
+    timer.unref();
     return Promise.resolve(true);
   }
 

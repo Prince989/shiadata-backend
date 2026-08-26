@@ -65,7 +65,7 @@ export default registerAs('llm', (): LlmConfig => ({
   maxInputTokens: Number(process.env.LLM_MAX_INPUT_TOKENS ?? 100_000),
   inputCharsPerToken: Number(process.env.LLM_INPUT_CHARS_PER_TOKEN ?? 2.5),
   thinkingBudget: Number(process.env.LLM_THINKING_BUDGET ?? 0),
-  requestTimeoutMs: Number(process.env.LLM_REQUEST_TIMEOUT_MS ?? 45_000),
+  requestTimeoutMs: Number(process.env.LLM_REQUEST_TIMEOUT_MS ?? 60_000),
   deadlineMs: Number(process.env.LLM_DEADLINE_MS ?? 90_000),
   maxAttempts: Number(process.env.LLM_MAX_ATTEMPTS ?? 4),
   retryBaseMs: Number(process.env.LLM_RETRY_BASE_MS ?? 500),
